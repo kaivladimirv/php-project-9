@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Repository\UrlRepositoryInterface;
 use App\Service\UrlNormalizer;
-use Carbon\Carbon;
+use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Flash\Messages;
 use Slim\Http\Response;
@@ -47,7 +47,7 @@ class AddUrlsController
 
         if ($validator->validate()) {
             if (!$existingUrl = $this->urlRepository->findOneByName($url['name'])) {
-                $url['created_at'] = Carbon::now()->toDateTimeString();
+                $url['created_at'] = (new DateTimeImmutable())->format('c');
 
                 $id = $this->urlRepository->add($url);
 
