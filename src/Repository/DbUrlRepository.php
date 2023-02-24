@@ -8,7 +8,7 @@ use PDO;
 
 class DbUrlRepository implements UrlRepositoryInterface
 {
-    public function __construct(private readonly PDO $pdoConnection)
+    public function __construct(private PDO $pdoConnection)
     {
     }
 

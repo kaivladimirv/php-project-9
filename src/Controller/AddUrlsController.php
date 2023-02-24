@@ -21,11 +21,11 @@ use Valitron\Validator;
 class AddUrlsController
 {
     public function __construct(
-        private readonly Twig $twig,
-        private readonly Messages $flash,
-        private readonly RouteCollectorInterface $routeCollector,
-        private readonly UrlRepositoryInterface $urlRepository,
-        private readonly UrlNormalizer $urlNormalizer
+        private Twig $twig,
+        private Messages $flash,
+        private RouteCollectorInterface $routeCollector,
+        private UrlRepositoryInterface $urlRepository,
+        private UrlNormalizer $urlNormalizer
     ) {
     }
 

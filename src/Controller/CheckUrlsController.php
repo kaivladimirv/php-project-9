@@ -12,7 +12,7 @@ use Slim\Interfaces\RouteCollectorInterface;
 class CheckUrlsController
 {
     public function __construct(
-        private readonly RouteCollectorInterface $routeCollector
+        private RouteCollectorInterface $routeCollector
     ) {
     }
 

@@ -17,9 +17,9 @@ use Twig\Error\SyntaxError;
 class ShowUrlsController
 {
     public function __construct(
-        private readonly Twig $twig,
-        private readonly Messages $flash,
-        private readonly UrlRepositoryInterface $repository
+        private Twig $twig,
+        private Messages $flash,
+        private UrlRepositoryInterface $repository
     ) {
     }
 

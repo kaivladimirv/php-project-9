@@ -15,7 +15,7 @@ use Twig\Error\SyntaxError;
 
 class ListUrlsController
 {
-    public function __construct(private readonly Twig $twig, private readonly UrlRepositoryInterface $repository)
+    public function __construct(private Twig $twig, private UrlRepositoryInterface $repository)
     {
     }
 
