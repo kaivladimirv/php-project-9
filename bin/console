@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+use DI\ContainerBuilder;
+use Symfony\Component\Console\Application;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
+
+$container = (new ContainerBuilder())
+    ->addDefinitions(__DIR__ . '/../config/container.php')
+    ->build();
+
+try {
+    $application = new Application();
+
+    foreach ($container->get('commands') as $commandClassName) {
+        $application->add($container->get($commandClassName));
+    }
+
+    exit($application->run());
+} catch (Throwable $exception) {
+    echo $exception->getMessage();
+    exit(1);
+}
