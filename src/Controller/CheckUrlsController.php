@@ -64,8 +64,11 @@ class CheckUrlsController
             $this->flash->addMessage('error', 'Произошла ошибка при проверке. Ошибка при выполнении запроса');
 
             return $response->withRedirect($this->routeCollector->getRouteParser()->urlFor('url', ['id' => $urlId]));
-        } catch (Exception) {
-            return $this->twig->render($response->withStatus(500), 'app/500.html.twig');
+        } catch (Exception $e) {
+            $this->flash->addMessageNow('error', $e->getMessage());
+            $data = ['flashes' => $this->flash->getMessages()];
+
+            return $this->twig->render($response->withStatus(500), 'app/500.html.twig', $data);
         }
     }
 
@@ -75,6 +78,9 @@ class CheckUrlsController
             'url_id'      => $urlId,
             'created_at'  => (new DateTimeImmutable())->format('c'),
             'status_code' => $checkResult['status_code'],
+            'h1'          => $checkResult['h1'],
+            'title'       => $checkResult['title'],
+            'description' => $checkResult['description'],
         ];
     }
 }
