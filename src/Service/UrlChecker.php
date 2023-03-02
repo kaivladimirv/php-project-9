@@ -42,8 +42,8 @@ class UrlChecker
         $description = $this->document->first('meta[name="description"]');
 
         return [
-            'h1'          => $h1 ? $h1->text() : null,
-            'title'       => $title ? $title->text() : null,
+            'h1'          => $h1 ? optional($h1)->text() : null,
+            'title'       => $title ? optional($title)->text() : null,
             'description' => $description ? $description->getAttribute('content') : null,
         ];
     }
