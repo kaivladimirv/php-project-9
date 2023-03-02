@@ -8,7 +8,8 @@
 
             <form action="{{ url_for('addUrl') }}" method="post" class="d-flex flex-wrap flex-sm-nowrap">
                 <div class="flex-grow-1">
-                    <input type="text" name="url[name]" value="" class="form-control form-control-lg"
+                    <input type="text" name="url[name]" value=""
+                           class="form-control form-control-lg {% if errors.name %}is-invalid{% endif %}"
                            placeholder="https://www.example.com">
                     {% if errors.name %}
                         <p class="invalid-feedback">{{ errors.name|first }}</p>
