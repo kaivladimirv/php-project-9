@@ -53,6 +53,8 @@ class CheckUrlsController
 
             $this->urlCheckRepository->add($check);
 
+            $this->flash->addMessage('success', 'Страница успешно проверена');
+
             return $response->withRedirect($this->routeCollector->getRouteParser()->urlFor('url', ['id' => $urlId]));
         } catch (UrlNotFoundException) {
             return $this->twig->render($response->withStatus(404), 'app/404.html.twig');
