@@ -35,10 +35,10 @@ class DbConnection
 
     public static function get(): self
     {
-        if (!static::$conn) {
-            static::$conn = new self();
+        if (!self::$conn) {
+            self::$conn = new self();
         }
 
-        return static::$conn;
+        return self::$conn;
     }
 }
