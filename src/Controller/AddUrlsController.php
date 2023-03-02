@@ -37,15 +37,16 @@ class AddUrlsController
     public function __invoke(ServerRequest $request, Response $response): ResponseInterface
     {
         $url = $request->getParsedBodyParam('url');
-        $url['name'] = $this->urlNormalizer->normalize($url['name']);
 
         $validator = new Validator($url);
         $validator->setPrependLabels(false);
-        $validator->rule('required', 'name');
-        $validator->rule('lengthMax', 'name', 255);
-        $validator->rule('url', 'name');
+        $validator->rule('required', 'name')->message('URL не должен быть пустым');
+        $validator->rule('lengthMax', 'name', 255)->message('URL не должен быть пустым');
+        $validator->rule('url', 'name')->message('Некорректный URL');
 
         if ($validator->validate()) {
+            $url['name'] = $this->urlNormalizer->normalize($url['name']);
+
             if (!$existingUrl = $this->urlRepository->findOneByName($url['name'])) {
                 $url['created_at'] = (new DateTimeImmutable())->format('c');
 
@@ -67,6 +68,7 @@ class AddUrlsController
             'url'     => $url,
             'errors'  => $validator->errors(),
             'flashes' => $this->flash->getMessages(),
+            'errorMessage' => print_r($validator->errors(), true)
         ];
 
         return $this->twig->render($response->withStatus(422), 'app/home.html.twig', $params);
