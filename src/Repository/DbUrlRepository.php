@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Exception\UrlNotFoundException;
 use PDO;
 
 class DbUrlRepository implements UrlRepositoryInterface
@@ -27,6 +28,9 @@ class DbUrlRepository implements UrlRepositoryInterface
         return $this->pdoConnection->lastInsertId('urls_id_seq');
     }
 
+    /**
+     * @throws UrlNotFoundException
+     */
     public function getOne(string $id): array
     {
         $sql = 'SELECT * FROM urls WHERE id = :id';
@@ -35,7 +39,9 @@ class DbUrlRepository implements UrlRepositoryInterface
         $stmt->bindValue(':id', $id);
         $stmt->execute();
 
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!$result = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
+            throw new UrlNotFoundException('Url не найден');
+        }
 
         return array_shift($result);
     }
