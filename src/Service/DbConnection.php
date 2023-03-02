@@ -16,7 +16,7 @@ class DbConnection
 
     public function connect(): PDO
     {
-        $databaseUrl = parse_url(getenv('DATABASE_URL') ?? '');
+        $databaseUrl = parse_url(getenv('DATABASE_URL') ? : '');
 
         $dsn = sprintf(
             "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
