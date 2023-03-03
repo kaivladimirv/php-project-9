@@ -46,26 +46,23 @@ class CheckUrlsController
         try {
             $urlId = $args['id'];
             $url = $this->urlRepository->getOne($urlId);
+            try {
+                $checkResult = $this->urlChecker->check($url['name']);
 
-            $checkResult = $this->urlChecker->check($url['name']);
+                $check = $this->buildNewCheck($urlId, $checkResult);
 
-            $check = $this->buildNewCheck($urlId, $checkResult);
+                $this->urlCheckRepository->add($check);
 
-            $this->urlCheckRepository->add($check);
-
-            $this->flash->addMessage('success', 'Страница успешно проверена');
+                $this->flash->addMessage('success', 'Страница успешно проверена');
+            } catch (ConnectException) {
+                $this->flash->addMessage('error', 'Произошла ошибка при проверке, не удалось подключиться');
+            } catch (RequestException) {
+                $this->flash->addMessage('error', 'Произошла ошибка при проверке. Ошибка при выполнении запроса');
+            }
 
             return $response->withRedirect($this->routeCollector->getRouteParser()->urlFor('url', ['id' => $urlId]));
         } catch (UrlNotFoundException) {
             return $this->twig->render($response->withStatus(404), 'app/404.html.twig');
-        } catch (ConnectException) {
-            $this->flash->addMessage('error', 'Произошла ошибка при проверке, не удалось подключиться');
-
-            return $response->withRedirect($this->routeCollector->getRouteParser()->urlFor('url', ['id' => $urlId]));
-        } catch (RequestException) {
-            $this->flash->addMessage('error', 'Произошла ошибка при проверке. Ошибка при выполнении запроса');
-
-            return $response->withRedirect($this->routeCollector->getRouteParser()->urlFor('url', ['id' => $urlId]));
         } catch (Exception $e) {
             $this->flash->addMessageNow('error', $e->getMessage());
             $data = ['flashes' => $this->flash->getMessages()];
