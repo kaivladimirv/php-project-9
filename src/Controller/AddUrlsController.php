@@ -35,7 +35,7 @@ class AddUrlsController
      * @throws RuntimeError
      * @throws LoaderError
      */
-    public function __invoke(ServerRequest $request, Response $response, array $args, Twig $twig): ResponseInterface
+    public function __invoke(ServerRequest $request, Response $response): ResponseInterface
     {
         $url = $request->getParsedBodyParam('url');
 
