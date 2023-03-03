@@ -16,5 +16,5 @@ See demo: https://php-project-9-production-1789.up.railway.app/
 * Composer
 
 ## License
-The Bryan Games project is licensed for use under the MIT License (MIT).
+The Page Analyzer project is licensed for use under the MIT License (MIT).
 Please see [LICENSE](/LICENSE) for more information.
