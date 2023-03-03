@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Repository\UrlRepositoryInterface;
 use App\Service\UrlNormalizer;
+use App\Service\UrlValidator;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Flash\Messages;
@@ -16,7 +17,6 @@ use Slim\Views\Twig;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Valitron\Validator;
 
 class AddUrlsController
 {
@@ -25,7 +25,8 @@ class AddUrlsController
         private Messages $flash,
         private RouteCollectorInterface $routeCollector,
         private UrlRepositoryInterface $urlRepository,
-        private UrlNormalizer $urlNormalizer
+        private UrlNormalizer $urlNormalizer,
+        private UrlValidator $urlValidator
     ) {
     }
 
@@ -34,17 +35,11 @@ class AddUrlsController
      * @throws RuntimeError
      * @throws LoaderError
      */
-    public function __invoke(ServerRequest $request, Response $response): ResponseInterface
+    public function __invoke(ServerRequest $request, Response $response, array $args, Twig $twig): ResponseInterface
     {
         $url = $request->getParsedBodyParam('url');
 
-        $validator = new Validator($url);
-        $validator->setPrependLabels(false);
-        $validator->rule('required', 'name')->message('URL не должен быть пустым');
-        $validator->rule('lengthMax', 'name', 255)->message('URL не должен быть пустым');
-        $validator->rule('url', 'name')->message('Некорректный URL');
-
-        if ($validator->validate()) {
+        if ($this->urlValidator->validate($url)) {
             $url['name'] = $this->urlNormalizer->normalize($url['name']);
 
             if (!$existingUrl = $this->urlRepository->findOneByName($url['name'])) {
@@ -66,9 +61,8 @@ class AddUrlsController
 
         $params = [
             'url'     => $url,
-            'errors'  => $validator->errors(),
+            'errors'  => $this->urlValidator->getErrors(),
             'flashes' => $this->flash->getMessages(),
-            'errorMessage' => print_r($validator->errors(), true)
         ];
 
         return $this->twig->render($response->withStatus(422), 'app/home.html.twig', $params);
