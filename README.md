@@ -15,6 +15,17 @@ See demo: https://php-project-9-production-1789.up.railway.app/
 * PHP 8.0+
 * Composer
 
+## Installation
+```
+$ git clone https://github.com/kaivladimirv/php-project-9.git
+
+$ cd php-project-9
+
+$ make install
+
+$ make start
+```
+
 ## License
 The Page Analyzer project is licensed for use under the MIT License (MIT).
 Please see [LICENSE](/LICENSE) for more information.
