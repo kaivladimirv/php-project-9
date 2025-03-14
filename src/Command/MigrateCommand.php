@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MigrateCommand extends Command
 {
-    public function __construct(private PDO $pdoConnection)
+    public function __construct(private readonly PDO $pdoConnection)
     {
         parent::__construct();
     }

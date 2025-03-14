@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use function DI\autowire;
 use App\Repository\DbUrlCheckRepository;
 use App\Repository\DbUrlRepository;
 use App\Repository\UrlCheckRepositoryInterface;
@@ -14,7 +15,10 @@ return [
     Twig::class                        => fn() => Twig::create('../templates'),
     Messages::class                    => fn() => new Messages(),
     PDO::class                         => fn() => DbConnection::get()->connect(),
-    UrlRepositoryInterface::class      => DI\autowire(DbUrlRepository::class),
-    UrlCheckRepositoryInterface::class => DI\autowire(DbUrlCheckRepository::class),
+    UrlRepositoryInterface::class      => autowire(DbUrlRepository::class),
+    UrlCheckRepositoryInterface::class => autowire(DbUrlCheckRepository::class),
     'commands'                         => fn() => require __DIR__ . '/commands.php',
+    'settings'                         => [
+        'displayErrorDetails' => getenv('APP_ENV') === 'development'
+    ]
 ];

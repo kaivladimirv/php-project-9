@@ -9,7 +9,7 @@ use DiDom\Exceptions\InvalidSelectorException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class UrlChecker
+readonly class UrlChecker
 {
     public function __construct(private Client $httpClient, private Document $document)
     {

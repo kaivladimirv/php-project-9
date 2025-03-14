@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dotenv\Dotenv;
 use App\Controller\AddUrlsController;
 use App\Controller\CheckUrlsController;
 use App\Controller\HomeController;
@@ -16,12 +17,12 @@ use Valitron\Validator;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createUnsafeImmutable(dirname(__DIR__));
+$dotenv = Dotenv::createUnsafeImmutable(dirname(__DIR__));
 $dotenv->safeLoad();
 
 Validator::lang('ru');
 
-$container = (new ContainerBuilder())
+$container = new ContainerBuilder()
     ->addDefinitions(__DIR__ . '/../config/container.php')
     ->build();
 

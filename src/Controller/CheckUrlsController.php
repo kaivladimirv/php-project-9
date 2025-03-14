@@ -23,7 +23,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class CheckUrlsController
+readonly class CheckUrlsController
 {
     public function __construct(
         private RouteCollectorInterface $routeCollector,
@@ -75,7 +75,7 @@ class CheckUrlsController
     {
         return [
             'url_id'      => $urlId,
-            'created_at'  => (new DateTimeImmutable())->format('c'),
+            'created_at'  => new DateTimeImmutable()->format('c'),
             'status_code' => $checkResult['status_code'],
             'h1'          => $checkResult['h1'],
             'title'       => $checkResult['title'],

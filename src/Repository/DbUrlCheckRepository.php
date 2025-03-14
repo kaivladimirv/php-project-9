@@ -6,7 +6,7 @@ namespace App\Repository;
 
 use PDO;
 
-class DbUrlCheckRepository implements UrlCheckRepositoryInterface
+readonly class DbUrlCheckRepository implements UrlCheckRepositoryInterface
 {
     public function __construct(private PDO $pdoConnection)
     {

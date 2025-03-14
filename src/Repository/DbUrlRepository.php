@@ -7,7 +7,7 @@ namespace App\Repository;
 use App\Exception\UrlNotFoundException;
 use PDO;
 
-class DbUrlRepository implements UrlRepositoryInterface
+readonly class DbUrlRepository implements UrlRepositoryInterface
 {
     public function __construct(private PDO $pdoConnection)
     {

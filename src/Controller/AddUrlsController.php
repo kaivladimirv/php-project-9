@@ -18,7 +18,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class AddUrlsController
+readonly class AddUrlsController
 {
     public function __construct(
         private Twig $twig,
@@ -43,7 +43,7 @@ class AddUrlsController
             $url['name'] = $this->urlNormalizer->normalize($url['name']);
 
             if (!$existingUrl = $this->urlRepository->findOneByName($url['name'])) {
-                $url['created_at'] = (new DateTimeImmutable())->format('c');
+                $url['created_at'] = new DateTimeImmutable()->format('c');
 
                 $id = $this->urlRepository->add($url);
 

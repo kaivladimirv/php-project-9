@@ -12,7 +12,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class HomeController
+readonly class HomeController
 {
     public function __construct(private Twig $twig)
     {

@@ -1,5 +1,7 @@
 <?php
 
+use App\Command\MigrateCommand;
+
 return [
-    \App\Command\MigrateCommand::class,
+    MigrateCommand::class,
 ];

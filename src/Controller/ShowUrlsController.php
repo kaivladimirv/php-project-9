@@ -17,7 +17,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class ShowUrlsController
+readonly class ShowUrlsController
 {
     public function __construct(
         private Twig $twig,

@@ -13,7 +13,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class ListUrlsController
+readonly class ListUrlsController
 {
     public function __construct(private Twig $twig, private UrlFetcher $fetcher)
     {

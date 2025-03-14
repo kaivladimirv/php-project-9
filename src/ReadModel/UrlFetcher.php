@@ -6,7 +6,7 @@ namespace App\ReadModel;
 
 use PDO;
 
-class UrlFetcher
+readonly class UrlFetcher
 {
     public function __construct(private PDO $pdoConnection)
     {

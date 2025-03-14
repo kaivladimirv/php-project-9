@@ -15,7 +15,7 @@ jobs:
         steps:
             # Check-out repository under GitHub workspace
             # https://github.com/actions/checkout
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
                 # Step's name
             - name: Setup PHP
                 # Action gives to setup the PHP environment to test application
@@ -23,7 +23,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   # Specify the PHP version
-                  php-version: '8.0.1'
+                  php-version: '8.4'
             - name: Install
                 # Install project
               run: make install
