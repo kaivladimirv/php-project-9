@@ -77,9 +77,10 @@ readonly class CheckUrlsController
             'url_id'      => $urlId,
             'created_at'  => new DateTimeImmutable()->format('c'),
             'status_code' => $checkResult['status_code'],
-            'h1'          => $checkResult['h1'],
-            'title'       => $checkResult['title'],
-            'description' => $checkResult['description'],
+            'h1'          => mb_substr($checkResult['h1'] ?? '', 0, 255),
+            'title'       => mb_substr($checkResult['title'] ?? '', 0, 255),
+            'description' => mb_substr($checkResult['description'] ?? '', 0, 255),
         ];
     }
+
 }
