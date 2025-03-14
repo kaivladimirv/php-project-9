@@ -82,5 +82,4 @@ readonly class CheckUrlsController
             'description' => mb_substr($checkResult['description'] ?? '', 0, 255),
         ];
     }
-
 }
